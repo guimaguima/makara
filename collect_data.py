@@ -53,19 +53,19 @@ def main():
     sources = os.listdir("bin")
     for output_name in sources:
         print(f"Running {output_name}...")
-        try:
-            for _ in range(30):
+        for _ in range(100):
+            try:
                 subprocess.run(
                     [f"./bin/{output_name}", "0"],
                     check=True,
                 )
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to run the {output_name}: {e}")
-            continue
-
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to run the {output_name} : {e}")
+                continue
+        
     with open("results/perf_results.csv", "r") as file:
         filedata = file.read()
-
+    
     filedata = filedata.replace("newline", "\n")
 
     with open("results/perf_results.csv", "w") as file:
@@ -77,5 +77,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # injection_pipeline()
+    injection_pipeline()
     main()
